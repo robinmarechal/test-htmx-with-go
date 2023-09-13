@@ -1,0 +1,71 @@
+<table class="table is-striped is-hoverable is-fullwidth is-valign-middle" id="todolist">
+    <thead>
+        <th width="50px"></th>
+        <th>Todo</th>
+        <th width="1"></th>
+    </thead>
+    <tbody>
+        <tr hx-trigger="load, reload-todos from:body" hx-push-url="false" hx-get="/tmpl/todo/emptylist" hx-swap="innerHTML"></tr>
+
+        {{ if .Todos }}
+        {{ range $val := .Todos }}
+        {{ template "todo-item-row" . }}
+        {{end}}
+        {{ end }}
+    </tbody>
+</table>
+
+{{define "todo-item-row"}}
+<tr class="is-hoverable todo-item-row {{ if .Done -}} todo-item-done {{- end }}" id="todo-item-{{.Id}}">
+    <td align="center">
+        {{ template "ctrl-buttons-toggle" . }}
+    </td>
+    <td id="todo-item-{{.Id}}-name-cell" class="pointer" hx-push-url="true" hx-get="/todo/{{ .Id }}" hx-swap="innerHTML" hx-target="#todolist">
+        <span class="loader htmx-indicator">
+            <span>...</span>
+            <!-- <svg class="htmx-indicator spinner" id="htmx-indicator-{{ .Id }}" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="black" fill="transparent" stroke-width="4">
+            </circle>
+            <path class="opacity-75"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
+        </svg> -->
+        </span>
+        <p class="loaded text-middle" title="{{.Description}}">{{.Name}}</p>
+    </td>
+    <td class="has-text-right">
+        {{ template "ctrl-buttons-delete" . }}
+    </td>
+</tr>
+{{end}}
+
+{{ define "ctrl-buttons-toggle" }}
+<input hx-post="todo/toggle/{{ .Id }}" hx-indicator="#todo-item-{{.Id}}-name-cell .loader, #todo-item-{{.Id}}-name-cell .loaded"
+    hx-boost="false" hx-push-url="false" hx-swap="outerHTML" hx-target="closest .todo-item-row" type="checkbox" {{ if
+    .Done -}} checked {{- end}} class="show-on-hover">
+<!-- {{ if .Done }}
+<button class="button is-danger is-light" type="button" hx->
+    <span class="fa fa-xmark"></span>
+</button>
+{{ else }}
+<button class="button is-primary" type="button">
+    <span class="fa fa-check"></span>
+</button>
+{{ end }} -->
+{{ end }}
+
+{{ define "ctrl-buttons-delete" }}
+<button id="todo-item-{{.Id}}-del-btn" hx-delete="/todo/delete/{{ .Id }}"
+    hx-indicator="#todo-item-{{.Id}}-del-btn .loader, #todo-item-{{.Id}}-del-btn .loaded" hx-push-url="false"
+    hx-swap="outerHTML" hx-target="closest tr" class="button is-danger show-on-hover" type="button">
+    <span class="loader htmx-indicator">...</span>
+    <span class="loaded"><span class="fa fa-trash" /></span>
+</button>
+{{end}}
+
+{{define "empty-todolist-row"}}
+<td></td>
+<td class="is-italic">No todo yet...</td>
+<td></td>
+{{end}}

@@ -1,0 +1,11 @@
+{{ define "todolist-details" }} 
+<div>
+    <a hx-get="/todos" hx-push-url="true" hx-target="#todolist" hx-swap="innerHTML">← Todo List</a>
+
+    <div>
+        <h2>{{ .Name }}</h2>
+    </div>
+</div>
+{{end}}
+
+{{template "todolist-details" .}}

@@ -1,0 +1,11 @@
+{{ template "header" }}
+
+<body hx-boost="true">
+    {{ template "todolist-form" . }}
+    <hr>
+
+    <div id="todolist">
+        {{template "todolist-details" . }}
+    </div>
+</body>
+{{ template "footer"}}

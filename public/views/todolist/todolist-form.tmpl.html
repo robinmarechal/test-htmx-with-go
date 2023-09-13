@@ -1,0 +1,18 @@
+{{ define "todolist-form" }}
+<form id="todo-form" class="is-flex is-flex-direction-row is-align-content-space-between" hx-post="/todo/new"
+    hx-on::after-request="if(event.detail.successful) this.reset()"
+    hx-swap="beforeend"
+    hx-target="#todolist tbody"
+    hx-indicator="#todo-form .loaded, #todo-form .loader">
+
+    <input class="input mx-2" required type="text" name="name" id="name" placeholder="Todo Title">
+
+    <button class="button is-primary" type="submit">
+        <span class="loader htmx-indicator">...</span>
+        <span class="loaded"><span class="fa fa-plus"/></span>
+    </button>
+    <button class="button is-light is-danger mx-2" type="reset">
+        <span class="fa fa-xmark" />
+    </button>
+</form>
+{{end}}

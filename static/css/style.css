@@ -1,0 +1,66 @@
+.todo-item-row:hover .show-on-hover{
+    opacity: 1;
+}
+
+.todo-item-row .show-on-hover {
+    opacity: 0;
+}
+
+.pointer {
+    cursor: pointer
+}
+
+.htmx-indicator{
+    opacity:0;
+    transition: opacity 200ms ease-in-out;
+    text-align: center;
+}
+.htmx-request .htmx-indicator{
+    opacity:1
+}
+.htmx-request.htmx-indicator{
+    opacity:1
+}
+
+.todo-item-done p {
+    text-decoration: line-through;
+    color: rgb(152, 152, 152);
+}
+
+td.is-valign-middle, 
+tr.is-valign-middle td, 
+table.is-valign-middle td {
+    vertical-align: middle;
+}
+
+.text-middle {
+    display: inline;
+    vertical-align: super;
+}
+
+input[type="checkbox"]{
+    background-color: red;
+}
+
+body{
+    padding:20px
+}
+
+.spinner{
+    height: 16px;
+    width: 16px;
+}
+
+.loader {
+    display: none;
+}
+
+.htmx-request .loader, 
+.htmx-request.loader {
+    display: block;
+}
+
+.htmx-request .loaded, 
+.htmx-request.loaded {
+    display: none;
+}

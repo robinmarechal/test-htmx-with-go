@@ -1,0 +1,7 @@
+{{ define "todolist-home" }}
+{{ template "todolist-form" . }}
+<hr>
+
+<div id="todolist" hx-push-url="true" hx-get="/todos" hx-trigger="load" />
+<p class="htmx-indicator">Loading...</p>
+{{end}}
