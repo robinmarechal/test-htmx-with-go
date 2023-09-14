@@ -60,6 +60,12 @@ body{
     display: block;
 }
 
+
+.htmx-request .loader.inline, 
+.htmx-request.loader.inline {
+    display: inline-block;
+}
+
 .htmx-request .loaded, 
 .htmx-request.loaded {
     display: none;
