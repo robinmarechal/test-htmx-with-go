@@ -27,7 +27,6 @@ func PostNewTodo(c echo.Context) error {
 	fakeLatency(1)
 
 	c.Response().Header().Set("HX-Trigger", "reload-todos")
-	// return nil
 
 	todo, err := db.FindTodo(int(id))
 	if err != nil {
@@ -49,10 +48,6 @@ func GetTodos(c echo.Context) error {
 
 	fakeLatency(1)
 
-	// if todos.Todos == nil || len(todos.Todos) == 0 {
-	// 	return c.Render(200, "empty-todolist.tmpl.html", nil)
-	// }
-
 	return c.Render(200, "non-empty-todolist.html", todos)
 }
 
@@ -72,23 +67,8 @@ func FindTodo(c echo.Context) error {
 		return c.Render(200, "todolist-details-index.html", todo)
 	}
 
-	return c.Render(200, "todolist-details.html", todo)
+	return c.Render(200, "todolist-details.tmpl.html", todo)
 }
-
-// func GetTodoRow(c echo.Context) error {
-// 	idstr := c.Param("id")
-// 	id, err := strconv.Atoi(idstr)
-// 	if err != nil {
-// 		return fmt.Errorf("failed to convert str to int. str=%s, err=%w", idstr, err)
-// 	}
-
-// 	todo, err := db.FindTodo(id)
-// 	if err != nil {
-// 		return fmt.Errorf("failed to load todo with id %d: %w", id, err)
-// 	}
-
-// 	return c.Render(200, "todo-item-row", todo)
-// }
 
 func DeleteTodo(c echo.Context) error {
 	idstr := c.Param("id")
@@ -145,5 +125,5 @@ func EmptyListRow(c echo.Context) error {
 }
 
 func fakeLatency(seconds time.Duration) {
-	// time.Sleep(seconds * time.Second)
+	time.Sleep(seconds * time.Second)
 }
